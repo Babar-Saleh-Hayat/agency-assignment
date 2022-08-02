@@ -1,0 +1,51 @@
+<!-- Table View -->
+<div class="card-container">
+  <h2>Agencies</h2>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a routerLink="/agency/{{element.link}}">
+          {{element.title}}
+        </a>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Website Column -->
+    <ng-container matColumnDef="website">
+      <mat-header-cell *matHeaderCellDef> Website </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.website}} </mat-cell>
+    </ng-container>
+
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>
+
+<!-- Links -->
+<div class="card-container">
+
+  <mat-form-field appearance="legacy">
+    <mat-label>No of items</mat-label>
+    <mat-select [ngModel]="pageLength" (ngModelChange)="updateNoOfItems($event)">
+      <mat-option *ngFor="let items of [10, 15, 20, 50]" [value]="items">
+        {{items}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button class="circle-link mat-body-strong" *ngIf="links?.first?.href" (click)="showTable(links?.first?.href || '')">&laquo;</button>
+  <button class="circle-link mat-body-strong" *ngIf="links?.prev?.href" (click)="showTable(links?.prev?.href || '')">&lt;</button>
+  <button class="circle-link mat-body-strong" *ngIf="links?.next?.href" (click)="showTable(links?.next?.href || '')">&gt;</button>
+
+</div>
